@@ -26,7 +26,9 @@
     createElement(cheat, "small").innerText = "Author: Plus";
     createElement(cheat, "div", "line").setAttribute("style", "margin-bottom: 10px");
 
-    const addCheat = (text, callbackOn, callbackOff) => {
+    let timers = {};
+    const addCheat = (text, callback) => {
+        timers[text] = 0;
         const parent = createElement(cheat, "div");
         parent.setAttribute("style", "height: 24px; position: relative;");
         createElement(parent, "label").innerText = text;
@@ -36,20 +38,21 @@
         button.addEventListener("click", () => {
             button.classList.toggle("off");
             button.innerText = button.innerText == "OFF" ? "ON" : "OFF";
-            button.innerText == "ON" ? callbackOn() : callbackOff();
+            if (button.innerText == "ON") {
+                timers[text] = callback();
+            } else {
+                clearInterval(timers[text]);
+            }
         });
     }
 
     let timerAutoClick;
+    let timerAutoClickGolden;
     let timerPurchase;
-    addCheat("Auto click.",
-        () => timerAutoClick = setInterval(() => document.getElementById("bigCookie").click(), 0),
-        () => clearInterval(timerAutoClick));
-
-    addCheat("Auto purchase buildings and upgrades.",
-        () => timerPurchase = setInterval(() => {
-            document.querySelectorAll("#upgrades.storeSection.upgradeBox div.enabled")[0]?.click();
-            document.querySelectorAll("[id^='product'].product.unlocked.enabled")[0]?.click();
-        }, 1000),
-        () => clearInterval(timerPurchase));
+    addCheat("Auto click.", () => timerAutoClick = setInterval(() => document.getElementById("bigCookie").click(), 0));
+    addCheat("Auto click golden cookies.", () => timerAutoClick = setInterval(() => document.querySelector(".shimmer")?.click(), 1000));
+    addCheat("Auto purchase buildings and upgrades.", () => timerPurchase = setInterval(() => {
+        document.querySelectorAll("#upgrades.storeSection.upgradeBox div.enabled")[0]?.click();
+        document.querySelectorAll("[id^='product'].product.unlocked.enabled")[0]?.click();
+    }, 1000));
 })();
