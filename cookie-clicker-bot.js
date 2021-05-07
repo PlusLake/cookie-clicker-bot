@@ -46,9 +46,6 @@
         });
     }
 
-    let timerAutoClick;
-    let timerAutoClickGolden;
-    let timerPurchase;
     addCheat("Auto click.", () => timerAutoClick = setInterval(() => document.getElementById("bigCookie").click(), 0));
     addCheat("Auto click golden cookies.", () => timerAutoClick = setInterval(() => document.querySelector(".shimmer")?.click(), 1000));
     addCheat("Auto purchase buildings and upgrades.", () => timerPurchase = setInterval(() => {
