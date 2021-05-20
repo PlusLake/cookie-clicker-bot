@@ -46,10 +46,11 @@
         });
     }
 
-    addCheat("Auto click.", () => timerAutoClick = setInterval(() => document.getElementById("bigCookie").click(), 0));
-    addCheat("Auto click golden cookies.", () => timerAutoClick = setInterval(() => document.querySelector(".shimmer")?.click(), 1000));
-    addCheat("Auto purchase buildings and upgrades.", () => timerPurchase = setInterval(() => {
+    addCheat("Auto click.", () => setInterval(() => document.getElementById("bigCookie").click(), 0));
+    addCheat("Auto click golden cookies.", () => setInterval(() => document.querySelector(".shimmer")?.click(), 10));
+    addCheat("Auto purchase buildings and upgrades.", () => setInterval(() => {
         document.querySelectorAll("#upgrades.storeSection.upgradeBox div.enabled")[0]?.click();
         document.querySelectorAll("[id^='product'].product.unlocked.enabled")[0]?.click();
     }, 1000));
+    addCheat("Auto click fortune.", () => setInterval(() => document.getElementById("commentsText").getElementsByClassName("fortune")[0]?.parentNode.click(), 500));
 })();
